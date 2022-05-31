@@ -5,9 +5,10 @@
   <div class="error" v-show="error">
     <p>Erro para atualizar</p>
   </div>
-  <div id="user">
+  <div class="user">
     <div class="title">
-      <h1>#{{ user.data.id }}</h1>
+      <h1>#{{ idGet }}</h1>
+      <button class="" @click="changeData">Salvar</button>
       <button class="active" @click="() => this.$router.push(`/`)">Voltar</button>
     </div>
     <div class="userInfo1">
@@ -19,13 +20,13 @@
         />
       </div>
       <div class="names">
-        <div class="first misc">
-          <span>Primeiro Nome</span>
-          <p>{{ user.data.first_name }}</p>
+        <div class="first">
+          <label for="">Primeiro Nome</label>
+          <input type="text" v-model="user.data.first_name" />
         </div>
-        <div class="last misc">
-          <span>Útilmo Nome</span>
-          <p>{{ user.data.last_name }}</p>
+        <div class="last">
+          <label for="">Útilmo Nome</label>
+          <input type="text" v-model="user.data.last_name" />
         </div>
       </div>
     </div>
@@ -33,7 +34,7 @@
   <div class="usermisc">
     <div class="misc">
       <span>Endereço de e-mail</span>
-      <p>{{ user.data.email }}</p>
+      <input type="text" v-model="user.data.email" />
     </div>
     <div class="misc">
       <span>Link do avatar</span>
@@ -52,7 +53,6 @@
 
 <script>
 import axios from "axios";
-
 export default {
   data() {
     return {
@@ -63,27 +63,20 @@ export default {
     };
   },
   methods: {
-    getAndPutUser() {
-      axios.get(`https://reqres.in/api/users/${this.idGet}`).then((r) => {
-        this.user = r.data;
-        this.userData = {
-          fname: this.user.data.first_name,
-          lname: this.user.data.last_name,
-          email: this.user.data.email,
-        };
-      });
-    },
+    getAndPutUser() {},
     changeData() {
-      axios.put(`https://reqres.in/api/users/${this.idGet}`, this.userData).then((r) => {
-        if (r.status === 200) {
-          this.sucess = true;
-          setTimeout(() => {
-            this.sucess = false;
-          }, 2500);
-        } else {
-          this.error = true;
-        }
-      });
+      if (this.idGet) {
+        axios.put(`https://reqres.in/api/users/${this.idGet}`, this.userData).then((r) => {
+          if (r.status === 200) {
+            this.sucess = true;
+            setTimeout(() => {
+              this.sucess = false;
+            }, 2500);
+          } else {
+            this.error = true;
+          }
+        });
+      }
     },
   },
   computed: {
@@ -92,7 +85,11 @@ export default {
     },
   },
   created() {
-    this.getAndPutUser();
+    if (this.idGet) {
+      axios.get(`https://reqres.in/api/users/${this.idGet}`).then((r) => {
+        this.user = r.data;
+      });
+    }
   },
 };
 </script>
@@ -126,26 +123,27 @@ export default {
     }
   }
 }
-
-.misc {
-  margin: 1rem 0;
-  span {
-    font-size: 14px;
-    color: #797979;
-    display: block;
-    margin-bottom: 0.3rem;
-  }
-  p {
-    padding: 0;
-    color: #000;
-    font-size: 16px;
-    font-weight: 700;
-  }
-  input {
-    padding: 0.5rem 0;
-    color: #000;
-    font-size: 16px;
-    font-weight: 700;
+.usermisc {
+  .misc {
+    margin: 1rem 0;
+    span {
+      font-size: 14px;
+      color: #797979;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    p {
+      padding: 0;
+      color: #000;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    input {
+      padding: 0.5rem 0;
+      color: #000;
+      font-size: 16px;
+      font-weight: 700;
+    }
   }
 }
 .sucess {

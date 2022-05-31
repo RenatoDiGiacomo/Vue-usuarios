@@ -20,7 +20,6 @@ $black: #000;
 $white: #ffffff;
 $grey: #797979;
 
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -40,16 +39,23 @@ $grey: #797979;
     font-size: 3.125rem;
   }
   button {
+    cursor: pointer;
     background-color: $black;
     color: $white;
-    padding: .7rem 2rem;
+    padding: 0.7rem 2rem;
     border: none;
     border-radius: 5px;
     font-size: 15px;
     font-weight: 600;
+    transition: all 0.2s linear;
+    &.active {
+      background-color: #F7F7F7;
+      color: #000;
+      transition: all 0.2s linear;
+    }
   }
-  .title{
-    width: 100% ;
+  .title {
+    width: 100%;
     display: flex;
     justify-content: space-between;
   }

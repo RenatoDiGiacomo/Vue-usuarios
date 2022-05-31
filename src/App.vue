@@ -1,8 +1,4 @@
 <template>
-  <div class="title">
-    <h1>Usuários</h1>
-    <button>Novo Usuário</button>
-  </div>
   <router-view></router-view>
 </template>
 
@@ -46,7 +42,7 @@ $grey: #797979;
   button {
     background-color: $black;
     color: $white;
-    padding: 1rem 1.5rem;
+    padding: .7rem 2rem;
     border: none;
     border-radius: 5px;
     font-size: 15px;

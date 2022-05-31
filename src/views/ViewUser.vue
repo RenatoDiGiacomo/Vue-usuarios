@@ -111,7 +111,9 @@ export default {
     display: flex;
     width: 100%;
     align-items: center;
-    justify-content: space-between;
+    .first{
+      margin-right: 4rem;
+    }
     label {
       font-size: 14px;
       color: #797979;
